@@ -11,8 +11,8 @@ clear all;
 allimages = dir(fullfile('Dataset','*', '*.jpeg'));
 shuffleidx = randperm(length(allimages), length(allimages));
 shuffledimages = allimages(shuffleidx);
-trainimages = shuffledimages(1:floor(length(shuffledimages))/2);
-testimages = shuffledimages(floor(length(shuffledimages))/2+1:end);
+trainimages = shuffledimages(1:floor(length(shuffledimages))/3*2);
+testimages = shuffledimages(floor(length(shuffledimages))/3*2+1:end);
 
 clear allimages shuffledimages
 

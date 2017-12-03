@@ -4,7 +4,8 @@
 % group project: North Campus Building Recognition
 
 % begin code -------
-clear all;
+% clc; 
+clear; close all;
 
 % load the names of all images, randomly separate half
 %   into training data, half into testing data
@@ -28,6 +29,13 @@ for i = 1:length(trainimages)
     imgname = trainimages(i).name;
     fullimgname = fullfile(trainimages(i).folder, trainimages(i).name);
     img = imread(fullimgname);
+    [r,c,~] = size(img);
+    % resize the image according to the ratio of 
+%     if r > c
+%         img = imresize(img, 1000/r);
+%     else
+%         img = imresize(img,700/c);
+%     end
     trainimages(i).feat = generate_feature(img);
     trainimages(i).label = imagelabels(strcmp(names,trainimages(i).name)).label;
     %trainimages(i).label = str2double(imgname(2:(strfind(imgname, '-')) - 1));
@@ -84,11 +92,15 @@ toc
 % get a matrix of test features, vector of test labels
 testfeatures= [testimages.feat]';
 testlabels = [testimages.label]';
+
+mu_testfeatures = mean(testfeatures);
+sigma_testfeatures = std(testfeatures);
 % normalize each column of the feature mat
 %   subtract mean and divide by standard deviation
 %   (normalize by training image data).
 for i = 1:size(testfeatures, 2)
     testfeatures(:, i) = (testfeatures(:, i) - mu_features(i))/sigma_features(i);
+    % testfeatures(:, i) = (testfeatures(:, i) - mu_testfeatures(i))/sigma_testfeatures(i);
 end
 
 % project these features onto the LDA subspace
