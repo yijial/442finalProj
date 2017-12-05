@@ -1,12 +1,11 @@
 
 
 %% define the range of transformation
-rotation_range=60;
+rotation_range=30;
 width_shift_range=0.2;
 height_shift_range=0.2;
 shear_range=0.2;
 zoom_range=0.2;
-projective_rage = 0.0005;
 
 imagefiles = dir('*.jpg');
 nfiles = length(imagefiles);
